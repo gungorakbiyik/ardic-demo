@@ -21,6 +21,25 @@ public class BuyukKucukUnluUyumuTests {
     private static final Locale locale = new Locale("TR", "tr");
 
     @Test
+    public void performanceTestFailWithLongWord() {
+        StringBuffer sbf = new StringBuffer();
+        for (int i=0; i<100_000; i++) {
+            sbf.append("aıou");
+        }
+        sbf.append("e");
+        assertFalse(BuyukKucukUnluUyumu.kontrol(sbf.toString()));
+    }
+
+    @Test
+    public void performanceTestWithLongWord() {
+        StringBuffer sbf = new StringBuffer();
+        for (int i=0; i<100_000; i++) {
+            sbf.append("aıou");
+        }
+        assertTrue(BuyukKucukUnluUyumu.kontrol(sbf.toString()));
+    }
+
+    @Test
     public void testHappyPath() {
         testList(correctWords, true);
 //        correctWords.forEach(s -> {
